@@ -6,44 +6,7 @@ This repository contains the design files and write-up for a Programmable Freque
 
 A set of common (and even**) frequencies from 10 MHz down to 152.6 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The following table shows the frequencies available and the displayed value.
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="486" width="656">
-
-  Frequency	    Display	  Scale
-    (Hz)					(Implied)
- 10,000,000 		10.00		   MHz
-  5,000,000 		5.000		   MHz
-  2,500,000 		2.500		   MHz
-  2,000,000 		2.000		   MHz
-  1,250,000 		1.250		   MHz
-  1,000,000 		1.000		   MHz
-    500,000 		500.0		   kHz
-    400,000 		400.0		   kHz
-    312,500 		312.5		   kHz
-    250,000 		250.0		   kHz
-    200,000 		200.0		   kHz
-    125,000 		125.0		   kHz
-    100,000 		100.0		   kHz
-     80,000 		 80.0		   kHz
-     50,000 		 50.0		   kHz
-     40,000 		 40.0		   kHz
-     25,000 		 25.0		   kHz
-     20,000 		 20.0		   kHz
-     12,500 		 12.5		   kHz
-     10,000 		 10.0		   kHz
-      8,000 		 8000		    Hz
-      5,000 		 5000		    Hz
-      4,000 		 4000		    Hz
-      3,125 		 3125		    Hz
-      2,500 		 2500		    Hz
-      2,000 		 2000		    Hz
-      1,250 		 1250		    Hz
-      1,000 		 1000		    Hz
-        800 		  800		    Hz
-        500 		  500		    Hz
-        400 		  400		    Hz
-        250 		  250		    Hz
-        200 		  200		    Hz
-        152.5902 	  153		    Hz
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="656" width="486">
 
 NOTE that the display is NOT a measure of the produced frequency.
 
