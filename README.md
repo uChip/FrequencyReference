@@ -6,7 +6,7 @@ This repository contains the design files and write-up for a Programmable Freque
 
 A set of common (and even**) frequencies from 10 MHz down to 152 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The folloing table shows the frequencies available and the displayed value.
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FreqTable.png" alt="PCB Top" height="486" width="656">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FreqTable.png" alt="Common Frequency Table" height="486" width="656">
   Frequency	    Display	  Scale
     (Hz)					(Implied)
  10,000,000 		10.00		   MHz
@@ -88,10 +88,14 @@ Hardware design files are in "CadSoft EAGLE PCB Design Software" .brd and .sch f
 
 The example code is in Arduino .ino format (text).  A free version of the Arduino software can be downloaded from www.arduino.cc.  
 
+## Attributions
+
+While the board layout, circuit design and microcontroller firmware are all my own, the idea for this project grew out of the $3 Precision Frequency Standard on EEVBlog http://www.eevblog.com/forum/projects/3-dollar-precision-frequency-standard/  
+
 ## Distribution License  
 
 License:
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Programmable Voltage Reference</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/uChip/VoltageReferenceProgrammable" property="cc:attributionName" rel="cc:attributionURL">C.Schnarel</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Programmable Voltage Reference</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/uChip/FrequencyReference" property="cc:attributionName" rel="cc:attributionURL">C.Schnarel</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
   
 
 
