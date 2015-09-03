@@ -4,9 +4,10 @@ Programmable Frequency Reference
 <img src="https://raw.githubusercontent.com/uChip/VoltageReferenceProgrammable/master/4000mV.jpg" alt="Programmable Voltage Reference with 1 mV resolution and 100 uV accuracy" height="260" width="390">  
 This repository contains the design files and write-up for a Programmable Frequency Reference board based on the RALTRON RTX0230LC*.  The RTX0230LC is a very accurate and stable crystal oscillator.  It is temperature compensated and tunable.  The oscillator drives the master clock of an ATmega328 microcontroller which then generates the output frequency by dividing down the master clock.  The ~5Vpp output signal is available on the BNC connector and has been impedance matched to 50 Ohms.
 
-A set of common (and even**) frequencies from 10 MHz down to 152 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The folloing table shows the frequencies available and the displayed value.
+A set of common (and even**) frequencies from 10 MHz down to 152.6 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The following table shows the frequencies available and the displayed value.
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FreqTable.png" alt="Common Frequency Table" height="486" width="656">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="486" width="656">
+
   Frequency	    Display	  Scale
     (Hz)					(Implied)
  10,000,000 		10.00		   MHz
