@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.3.0">
+<eagle version="7.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -3435,7 +3435,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <part name="U1" library="SparkFun" deviceset="ATMEGA168" device="" value="ATMEGA328"/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC"/>
 <part name="GND4" library="SparkFun" deviceset="GND" device=""/>
-<part name="JP2" library="SparkFun" deviceset="ARDUINO_SERIAL_PROGRAM" device="PTH" value="FTDI Basic"/>
+<part name="FTDI" library="SparkFun" deviceset="ARDUINO_SERIAL_PROGRAM" device="PTH" value="FTDI Basic"/>
 <part name="J1" library="SparkFun-Connectors" deviceset="AVR_SPI_PRG_6" device="PTH" value="ISP Connector"/>
 <part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC"/>
 <part name="GND3" library="SparkFun" deviceset="GND" device=""/>
@@ -3477,7 +3477,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <part name="FRAME1" library="NewFrame" deviceset="FRAME_LTR_CU_MARK" device="">
 <attribute name="CNAME" value="Frequency Standard"/>
 <attribute name="CREVISION" value="Rev A"/>
-<attribute name="DATECODE" value="27AUG2015"/>
+<attribute name="DATECODE" value="02SEP2015"/>
 <attribute name="DESIGNER" value="C.Schnarel"/>
 </part>
 <part name="TP4" library="ChipsParts" deviceset="TEST_POINT" device=""/>
@@ -3513,7 +3513,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </instance>
 <instance part="SUPPLY4" gate="G$1" x="63.5" y="116.84"/>
 <instance part="GND4" gate="1" x="63.5" y="53.34"/>
-<instance part="JP2" gate="G$1" x="86.36" y="27.94"/>
+<instance part="FTDI" gate="G$1" x="86.36" y="27.94"/>
 <instance part="J1" gate="G$1" x="40.64" y="50.8"/>
 <instance part="SUPPLY3" gate="G$1" x="53.34" y="55.88"/>
 <instance part="GND3" gate="1" x="58.42" y="40.64"/>
@@ -3640,12 +3640,12 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <wire x1="91.44" y1="33.02" x2="99.06" y2="33.02" width="0.1524" layer="91"/>
 <label x="93.98" y="33.02" size="1.778" layer="95"/>
-<pinref part="JP2" gate="G$1" pin="CTS"/>
+<pinref part="FTDI" gate="G$1" pin="CTS"/>
 </segment>
 <segment>
 <wire x1="91.44" y1="35.56" x2="99.06" y2="35.56" width="0.1524" layer="91"/>
 <label x="93.98" y="35.56" size="1.778" layer="95"/>
-<pinref part="JP2" gate="G$1" pin="GND"/>
+<pinref part="FTDI" gate="G$1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="6"/>
@@ -3771,7 +3771,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <wire x1="91.44" y1="25.4" x2="99.06" y2="25.4" width="0.1524" layer="91"/>
 <label x="93.98" y="25.4" size="1.778" layer="95"/>
-<pinref part="JP2" gate="G$1" pin="RXI"/>
+<pinref part="FTDI" gate="G$1" pin="RXI"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -3923,7 +3923,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <wire x1="91.44" y1="22.86" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
 <label x="93.98" y="22.86" size="1.778" layer="95"/>
-<pinref part="JP2" gate="G$1" pin="DTR"/>
+<pinref part="FTDI" gate="G$1" pin="DTR"/>
 </segment>
 <segment>
 <wire x1="27.94" y1="114.3" x2="20.32" y2="114.3" width="0.1524" layer="91"/>
@@ -3935,7 +3935,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <wire x1="91.44" y1="27.94" x2="99.06" y2="27.94" width="0.1524" layer="91"/>
 <label x="93.98" y="27.94" size="1.778" layer="95"/>
-<pinref part="JP2" gate="G$1" pin="TXO"/>
+<pinref part="FTDI" gate="G$1" pin="TXO"/>
 </segment>
 <segment>
 <wire x1="114.3" y1="91.44" x2="124.46" y2="91.44" width="0.1524" layer="91"/>
@@ -4031,7 +4031,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <label x="25.4" y="178.054" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="G$1" pin="VCC"/>
+<pinref part="FTDI" gate="G$1" pin="VCC"/>
 <wire x1="91.44" y1="30.48" x2="99.06" y2="30.48" width="0.1524" layer="91"/>
 <label x="93.98" y="30.48" size="1.778" layer="95"/>
 </segment>
@@ -4159,13 +4159,14 @@ Momentary and Push-on/Push-off with various color caps</description>
 <wire x1="182.88" y1="127" x2="167.64" y2="127" width="0.2032" layer="91"/>
 </segment>
 </net>
-<net name="N$7" class="0">
+<net name="SR_CLK" class="0">
 <segment>
 <pinref part="U3" gate="G$1" pin="CLK"/>
 <wire x1="144.78" y1="124.46" x2="134.62" y2="124.46" width="0.2032" layer="91"/>
 <wire x1="134.62" y1="124.46" x2="134.62" y2="111.76" width="0.2032" layer="91"/>
 <pinref part="U1" gate="G$1" pin="PC1(ADC1)"/>
 <wire x1="134.62" y1="111.76" x2="114.3" y2="111.76" width="0.2032" layer="91"/>
+<label x="116.84" y="111.76" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$11" class="0">
