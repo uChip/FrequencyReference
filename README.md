@@ -2,10 +2,11 @@ Programmable Frequency Reference
 ================================  
 
 <img src="https://raw.githubusercontent.com/uChip/VoltageReferenceProgrammable/master/4000mV.jpg" alt="Programmable Voltage Reference with 1 mV resolution and 100 uV accuracy" height="260" width="390">  
+This is a new project still in development.  Everything is incomplete and subject to change.  Caveat Emptor!
+
 This repository contains the design files and write-up for a Programmable Frequency Reference board based on the RALTRON RTX0230LC*.  The RTX0230LC is a very accurate and stable crystal oscillator.  It is temperature compensated and tunable.  The oscillator drives the master clock of an ATmega328 microcontroller which then generates the output frequency by dividing down the master clock.  The ~5Vpp output signal is available on the BNC connector and has been impedance matched to 50 Ohms.
 
 A set of common (and even**) frequencies from 10 MHz down to 152.6 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The following table shows the frequencies available and the displayed value.
-
 <img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="656" width="486">
 
 NOTE that the display is NOT a measure of the produced frequency.
@@ -15,6 +16,8 @@ Within the microcontroller the TCXO clock drives Timer/Counter1.  The Timer/Coun
 Alternatively, pressing the encoder knob will change the mode of the software and instead of choosing from a table an integer divisor value (1 to 65535) is shown on the display and sent to OCR1A.  The count is incremented or decremented by turning the encoder knob.  The output frequency will be a function of the integer value as follows:
 
 F_OUT = F_CPU / ( 2 * OCR1A )
+
+Pressing the encoder knob again returns the software to the common frequency mode.
 
 The mode, table value and divisor can also be sent to the microcontroller over USB through the board's FTDI interface.  For details on USB programming, see the document USB_Programming.pdf in this repo.
 
