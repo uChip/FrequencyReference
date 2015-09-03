@@ -201,6 +201,7 @@
 <pad name="12" x="-6.35" y="3.81" drill="0.8636" diameter="1.905"/>
 </package>
 <package name="BNC-RIGHT-ANGLE">
+<description>TE Connectivity AMP Connectors 1-1337543-0, Digi-Key #A97553-ND</description>
 <pad name="CTR" x="0" y="-5.08" drill="1" shape="square"/>
 <pad name="SHD" x="-2.54" y="-5.08" drill="1"/>
 <pad name="P$3" x="-5.08" y="0" drill="2.8"/>
@@ -922,8 +923,8 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="FRAME1" library="NewFrame" package="FR-LTR-ON-PCB" value="FRAME_LTR_CU_MARK" x="49.53" y="17.78">
 <attribute name="CNAME" value="Frequency Standard" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
-<attribute name="CREVISION" value="Rev A" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
-<attribute name="DATECODE" value="02SEP2015" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
+<attribute name="CREVISION" value="Rev B" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
+<attribute name="DATECODE" value="2015" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
 <attribute name="DESIGNER" value="C.Schnarel" x="49.53" y="17.78" size="1.778" layer="27" display="off"/>
 </element>
 <element name="TP4" library="ChipsParts" package="BBD-VIA" value="TEST_POINT" x="33.02" y="17.78"/>

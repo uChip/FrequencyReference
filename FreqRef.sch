@@ -182,6 +182,7 @@
 <pad name="12" x="-6.35" y="3.81" drill="0.8636" diameter="1.905"/>
 </package>
 <package name="BNC-RIGHT-ANGLE">
+<description>TE Connectivity AMP Connectors 1-1337543-0, Digi-Key #A97553-ND</description>
 <pad name="CTR" x="0" y="-5.08" drill="1" shape="square"/>
 <pad name="SHD" x="-2.54" y="-5.08" drill="1"/>
 <pad name="P$3" x="-5.08" y="0" drill="2.8"/>
@@ -489,6 +490,7 @@
 </devices>
 </deviceset>
 <deviceset name="BNC_RIGHT-ANGLE" prefix="J">
+<description>TE Connectivity AMP Connectors 1-1337543-0, Digi-Key #A97553-ND</description>
 <gates>
 <gate name="G$1" symbol="BNC" x="0" y="0"/>
 </gates>
@@ -3476,8 +3478,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 <part name="GND14" library="SparkFun" deviceset="GND" device=""/>
 <part name="FRAME1" library="NewFrame" deviceset="FRAME_LTR_CU_MARK" device="">
 <attribute name="CNAME" value="Frequency Standard"/>
-<attribute name="CREVISION" value="Rev A"/>
-<attribute name="DATECODE" value="02SEP2015"/>
+<attribute name="CREVISION" value="Rev B"/>
+<attribute name="DATECODE" value="2015"/>
 <attribute name="DESIGNER" value="C.Schnarel"/>
 </part>
 <part name="TP4" library="ChipsParts" deviceset="TEST_POINT" device=""/>
