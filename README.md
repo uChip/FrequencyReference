@@ -6,6 +6,7 @@ This repository contains the design files and write-up for a Programmable Freque
 
 A set of common (and even**) frequencies from 10 MHz down to 152 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The folloing table shows the frequencies available and the displayed value.
 
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FreqTable.png" alt="PCB Top" height="486" width="656">
   Frequency	    Display	  Scale
     (Hz)					(Implied)
  10,000,000 		10.00		   MHz
