@@ -72,9 +72,9 @@ NOTES
 You can order this PCB directly from OSH Park.  Click on the following link.  
   * Programmable Frequency Reference - https://oshpark.com/shared_projects/aFUNW4O5 
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAtop.png" alt="PCB Top" height="287" width="550">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAtop.png" alt="PCB Top" height="425" width="500">
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAbottom.png" alt="PCB Bottom" height="287" width="550">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAbottom.png" alt="PCB Bottom" height="425" width="510">
 
 See the Bill of Materials (BOM) file in the repo Hardware folder for a parts list.  
 
