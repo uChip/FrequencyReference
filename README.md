@@ -72,14 +72,14 @@ NOTES
 You can order this PCB directly from OSH Park.  Click on the following link.  
   * Programmable Frequency Reference - https://oshpark.com/shared_projects/aFUNW4O5 
 
-<img src="https://raw.githubusercontent.com/uChip/VoltageReferenceProgrammable/master/RevDtop.png" alt="PCB Top" height="287" width="550">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAtop.png" alt="PCB Top" height="287" width="550">
 
-<img src="https://raw.githubusercontent.com/uChip/VoltageReferenceProgrammable/master/RevDbottom.png" alt="PCB Bottom" height="287" width="550">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAbottom.png" alt="PCB Bottom" height="287" width="550">
 
 See the Bill of Materials (BOM) file in the repo Hardware folder for a parts list.  
 
 ## Status  
-  * Rev A PCB has been ordered but not yet tested.  The firmware has been tested on a breadboard.  
+  * NOT READY: Rev A PCB has been ordered but not yet tested.  The firmware has been tested on a breadboard.  
 
 ## File Formats  
 
