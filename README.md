@@ -29,7 +29,7 @@ The next revision of the board will be designed to accomodate other oscillators 
 
 NOTES  
 
-* The RALTRON RTX0230LC is a surplus part cheaply (~$6 for 5 pieces at the time of this writing) available on ebay. http://www.ebay.com/sch/i.html?_odkw=RTXO230&_osacat=0&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.XRTX0230.TRS0&_nkw=RTX0230&_sacat=0
+* The RALTRON RTX0230LC is a surplus part cheaply (~$5.50 for 5 pieces at the time of this writing) available on ebay. http://www.ebay.com/sch/i.html?_odkw=RTXO230&_osacat=0&_from=R40&_trksid=p2045573.m570.l1313.TR0.TRC0.H0.XRTX0230.TRS0&_nkw=RTX0230&_sacat=0
 
 ** Mostly.  All but the last are even numbered divisions of the master clock.  The last is the highest possible divisor, 65535, generating the lowest*** frequency possible.
 
