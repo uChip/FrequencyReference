@@ -1,3 +1,19 @@
+/**************************************************************************/
+/*! 
+    @file     FrequencyReference.ino
+    @author   C. Schnarel
+	@license  BSD (see license.txt)
+	
+	Application firmward for the Frequency Reference hardware.
+       Rotary encoder UI, USB remote control, 7-segment display, and
+       programmable divider (timer/counter1) that divides the system clock.
+
+	@section  HISTORY
+
+    2015-Sep-3  - First release, C. Schnarel
+*/
+/**************************************************************************/
+
 // Include libraries this sketch will use
 //#include <ProfileTimer.h>
 //#include <SPI.h>
@@ -17,7 +33,7 @@
 // UI Rotary Encoder w Button
 #define BUTTON 4
 #define DEBOUNCE_TIME 5
-// Encoder interface pins (defined in rotary instantiation)
+// Encoder interface pins (used in rotary instantiation)
 #define ROT_A 3
 #define ROT_B 2
 
@@ -33,9 +49,9 @@
 #define DIGIT_TIME 2000
 
 // Mode values
-// send refVal to DAC after adding correction factor
+// choose a predefined frequency from a table of values
 #define TABLE_VALUES true
-// send raw refVal numbers to the DAC w/o correcting
+// send the divisor value directly to the divider
 #define DIVISOR false
 
 // PC={G,D,A,B,E,C,Dp,F}
@@ -98,7 +114,7 @@ static uint16_t commonFreq[] = {
   25000,  //        400
   40000,  //        250
   50000,  //        200
-  64247   //        152
+  64247   //        152.59
 };
 
 // Lookup table for display values that go with common frequencies
@@ -136,7 +152,7 @@ static uint16_t dispFreq[] = {
    400,      //        400
    250,      //        250
    200,      //        200
-   152       //        152
+   153       //        152.59
 };
 
 // Battery level measurement
@@ -154,7 +170,7 @@ boolean startup = true;
 unsigned long startTime = 0;
 uint8_t CmdArray[7];
 uint8_t CmdArrayIdx = 0;
-uint16_t frqIdx = 0;
+int16_t frqIdx = 0;
 uint8_t sdata = 0;
 int DispBCD = 0;
 boolean newVal = true;
@@ -169,14 +185,14 @@ void setup() {
   // Initialize USB interface
   Serial.begin(115200);
   //delay(2000);
-  Serial.println("Reference Frequency Generator");  // set up the segment control pins
+  Serial.println("Reference Frequency Generator");
 
   // set up sense pins
   pinMode(BATT_SENSE, INPUT);
 
   // set up the button input pin
   pinMode(BUTTON, INPUT_PULLUP);
-  // if button is held down at startup, stay in RAW mode (no correction applied)
+  // if button is held down at startup, stay in DIVISOR mode
   button.update();
   if(button.read() == LOW) {mode = DIVISOR;} else {mode = TABLE_VALUES;}
 
@@ -221,6 +237,10 @@ void loop() {
         if(frqIdx < 0) frqIdx = 33;
         if(frqIdx > 33) frqIdx = 0;
       }
+      else {
+        if(frqIdx < 0) frqIdx = 65535;
+        if(frqIdx > 65535) frqIdx = 0;
+      }
       newVal = true;
     }
   }
@@ -232,6 +252,10 @@ void loop() {
     if(mode == TABLE_VALUES){
       if(frqIdx < 0) frqIdx = 33;
       if(frqIdx > 33) frqIdx = 0;
+    }
+    else {
+      if(frqIdx < 0) frqIdx = 65535;
+      if(frqIdx > 65535) frqIdx = 0;
     }
     newVal = true;
   }
