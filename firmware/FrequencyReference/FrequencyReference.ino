@@ -82,41 +82,61 @@ uint8_t	chargen[] = {
 
 // Lookup table for generating common frequencies
 static uint16_t commonFreq[] = {
-  1,      // 10,000,000
-  2,      //  5,000,000
-  4,      //  2,500,000
-  5,      //  2,000,000
-  8,      //  1,250,000
-  10,     //  1,000,000
-  20,     //    500,000
-  25,     //    400,000
-  32,     //    312,500
-  40,     //    250,000
-  50,     //    200,000
-  80,     //    125,000
-  100,    //    100,000
-  125,    //     80,000
-  200,    //     50,000
-  250,    //     40,000
-  400,    //     25,000
-  500,    //     20,000
-  800,    //     12,500
-  1000,   //     10,000
-  1250,   //      8,000
-  2000,   //      5,000
-  2500,   //      4,000
-  3200,   //      3,125
-  4000,   //      2,500
-  5000,   //      2,000
-  8000,   //      1,250
-  10000,  //      1,000
-  12500,  //        800
-  20000,  //        500
-  25000,  //        400
-  40000,  //        250
-  50000,  //        200
-  64247   //        152.59
+  0,      // 10,000,000
+  1,      //  5,000,000
+  3,      //  2,500,000
+  4,      //  2,000,000
+  7,      //  1,250,000
+  9,      //  1,000,000
+  19,     //    500,000
+  24,     //    400,000
+  31,     //    312,500
+  39,     //    250,000
+  49,     //    200,000
+  79,     //    125,000
+  99,     //    100,000
+  124,    //     80,000
+  199,    //     50,000
+  249,    //     40,000
+  399,    //     25,000
+  499,    //     20,000
+  799,    //     12,500
+  999,    //     10,000
+  1249,   //      8,000
+  1999,   //      5,000
+  2499,   //      4,000
+  3199,   //      3,125
+  3999,   //      2,500
+  4999,   //      2,000
+  7999,   //      1,250
+  9999,   //      1,000
+  12499,  //        800
+  19999,  //        500
+  24999,  //        400
+  39999,  //        250
+  49999,  //        200
+  64246   //        152.59
 };
+// 16MHz clock
+// D=0; 8.00MHz
+// D=1; 4.00
+// D=2; 2.67
+// D=3; 2.00
+// D=4; 1.60
+// D=5; 1.33
+// D=6; 1.14
+// D=7; 1.00
+// D=9; 800kHz
+// D=19; 400
+// D=24; 320
+// D=31; 250
+// D=39; 200
+// D=99; 80.0kHz
+// D=999; 8.00kHz
+// D=9999; 800Hz
+// D=49999; 160Hz
+// D=64246; 124.65Hz
+// D=65535; 122.19
 
 // Lookup table for display values that go with common frequencies
 static uint16_t dispFreq[] = {
@@ -238,8 +258,8 @@ void loop() {
         if(frqIdx > 33) frqIdx = 0;
       }
       else {
-        if(frqIdx < 1) frqIdx = 65535;
-        if(frqIdx > 65535) frqIdx = 1;
+        if(frqIdx < 0) frqIdx = 65535;
+        if(frqIdx > 65535) frqIdx = 0;
       }
       newVal = true;
     }
@@ -272,11 +292,14 @@ void loop() {
   // If the value has changed, send 
   // the new divisor to T0 and the serial port
   if(newVal) {
+    Serial.print("frqIdx = ");
     Serial.println(frqIdx);
     if(mode == TABLE_VALUES) {
       freqDivider.setDivisor(commonFreq[frqIdx]);
     }
     else freqDivider.setDivisor(frqIdx);
+    
+    newVal = false;
   }
         
   // Check for low battery
@@ -341,17 +364,17 @@ boolean ParseCommand() {
 
   if(CmdArray[0] != '#') return false;  // bad packet format
   if(CmdArray[1] != 'b') return false;  // bad packet format
-  if(CmdArray[7] != '.') return false;  // bad packet format
+  if(CmdArray[8] != '.') return false;  // bad packet format
   if(CmdArrayIdx != 8) return false;  // bad packet length
 
-  for(i=1;i<5;i++){
+  for(i=0;i<5;i++){
     c = CmdArray[i+3];
     if(c<48 || c>57) return false;
     j = j*10 + (c-48); // '0'==48
   }
-  // Serial.println(j);
+//  Serial.println(j);
 
-  switch (CmdArray[0]) {
+  switch (CmdArray[2]) {
     case 'T': // set the index into the table
       if(j>=0 && j<=33) {
         mode = TABLE_VALUES;
@@ -360,7 +383,7 @@ boolean ParseCommand() {
       }
       break;
     case 'D': // set the divisor value
-      if(j>=1 && j<=65535) {
+      if(j>=0 && j<=65535) {
         mode = DIVISOR;
         frqIdx = j;
         retVal = true;
@@ -567,8 +590,8 @@ void checkRotary() {
       if(frqIdx > 33) frqIdx = 0;
     }
     else {
-      if(frqIdx < 1) frqIdx = 65535;
-      if(frqIdx > 65535) frqIdx = 1;
+      if(frqIdx < 0) frqIdx = 65535;
+      if(frqIdx > 65535) frqIdx = 0;
     }
     newVal = true;
   }

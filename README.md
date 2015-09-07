@@ -13,9 +13,9 @@ NOTE that the display is NOT a measure of the produced frequency.
 
 Within the microcontroller the TCXO clock drives Timer/Counter1.  The Timer/Counter1 is configured to count up until the value matches that in Output Compare Register A (OCR1A) at which point the counter is reset to zero and the output OC1A is toggled.  The values for OCR1A are selected from a table when the encoder knob is turned.
 
-Alternatively, pressing the encoder knob will change the mode of the software and instead of choosing from a table an integer divisor value (1 to 65535) is shown on the display and sent to OCR1A.  The count is incremented or decremented by turning the encoder knob.  The output frequency will be a function of the integer value as follows:
+Alternatively, pressing the encoder knob will change the mode of the software and instead of choosing from a table an integer divisor value (0 to 65535) is shown on the display and sent to OCR1A.  The count is incremented or decremented by turning the encoder knob.  The output frequency will be a function of the integer value as follows:
 
-F_OUT = F_CPU / ( 2 * OCR1A )
+F_OUT = F_CPU / ( 2 * ( OCR1A + 1 ))
 
 Pressing the encoder knob again returns the software to the common frequency mode.
 

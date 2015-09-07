@@ -221,6 +221,35 @@
 <wire x1="-7.35" y1="7.35" x2="-7.35" y2="-7.35" width="0.127" layer="21"/>
 <wire x1="7.35" y1="-7.35" x2="7.35" y2="7.35" width="0.127" layer="21"/>
 </package>
+<package name="TCXO-3.2X5">
+<smd name="1" x="1.27" y="-1.92" dx="1.27" dy="1.35" layer="1"/>
+<smd name="4" x="1.27" y="1.92" dx="1.27" dy="1.35" layer="1"/>
+<smd name="5" x="-1.27" y="1.92" dx="1.27" dy="1.35" layer="1"/>
+<smd name="8" x="-1.27" y="-1.92" dx="1.27" dy="1.35" layer="1"/>
+<wire x1="-1.6" y1="2.5" x2="1.6" y2="2.5" width="0.127" layer="51"/>
+<wire x1="1.6" y1="2.5" x2="1.6" y2="-2.5" width="0.127" layer="51"/>
+<wire x1="1.6" y1="-2.5" x2="-1.6" y2="-2.5" width="0.127" layer="51"/>
+<wire x1="-1.6" y1="-2.5" x2="-1.6" y2="2.5" width="0.127" layer="51"/>
+<text x="-2" y="0" size="0.6096" layer="25" font="vector" ratio="15" rot="R90" align="bottom-center">&gt;NAME</text>
+<text x="2" y="0" size="0.6096" layer="25" font="vector" ratio="15" rot="R90" align="top-center">&gt;VALUE</text>
+</package>
+<package name="TCXO-9X14">
+<smd name="1" x="3.685" y="-2.54" dx="2.16" dy="1.52" layer="1"/>
+<smd name="2" x="3.685" y="0" dx="2.16" dy="1.52" layer="1"/>
+<smd name="3" x="3.685" y="2.54" dx="2.16" dy="1.52" layer="1"/>
+<smd name="4" x="-3.685" y="2.54" dx="2.16" dy="1.52" layer="1"/>
+<smd name="5" x="-3.685" y="0" dx="2.16" dy="1.52" layer="1"/>
+<smd name="6" x="-3.685" y="-2.54" dx="2.16" dy="1.52" layer="1"/>
+<text x="-4.5" y="6.5" size="0.8128" layer="25" font="vector" ratio="15">&gt;NAME</text>
+<text x="0" y="-6.5" size="0.8128" layer="27" font="vector" ratio="15" align="top-center">&gt;VALUE</text>
+<wire x1="-4.5" y1="4" x2="-4.5" y2="6" width="0.127" layer="21"/>
+<wire x1="-4.5" y1="6" x2="4.5" y2="6" width="0.127" layer="21"/>
+<wire x1="4.5" y1="6" x2="4.5" y2="4" width="0.127" layer="21"/>
+<wire x1="-4.5" y1="-4" x2="-4.5" y2="-6" width="0.127" layer="21"/>
+<wire x1="-4.5" y1="-6" x2="4.5" y2="-6" width="0.127" layer="21"/>
+<wire x1="4.5" y1="-6" x2="4.5" y2="-4" width="0.127" layer="21"/>
+<circle x="3.175" y="-4.445" radius="0.508" width="0" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="OSC_TCXO">
@@ -445,24 +474,6 @@
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="TCXO-RTXO230LC" prefix="OSC" uservalue="yes">
-<description>Available here: http://www.ebay.com/itm/RALTRON-RTX0230LC-20-000MHz-TCXO-Oscillator-NEW-5-PKG-/191356909770</description>
-<gates>
-<gate name="G$1" symbol="OSC_TCXO" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="TCXO">
-<connects>
-<connect gate="G$1" pin="GND" pad="GND SHLD1 SHLD2"/>
-<connect gate="G$1" pin="OSC" pad="OUT"/>
-<connect gate="G$1" pin="VCC" pad="VCC"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="HP_DISPLAY" prefix="DISP">
 <gates>
 <gate name="G$1" symbol="4-CHAR_7-SEGMENT_DISPLAY" x="0" y="0"/>
@@ -499,6 +510,44 @@
 <connects>
 <connect gate="G$1" pin="CTR" pad="CTR"/>
 <connect gate="G$1" pin="SHD" pad="SHD"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TCXO" prefix="OSC" uservalue="yes">
+<description>Available here: http://www.ebay.com/itm/RALTRON-RTX0230LC-20-000MHz-TCXO-Oscillator-NEW-5-PKG-/191356909770</description>
+<gates>
+<gate name="G$1" symbol="OSC_TCXO" x="0" y="0"/>
+</gates>
+<devices>
+<device name="RALTRON" package="TCXO">
+<connects>
+<connect gate="G$1" pin="GND" pad="GND SHLD1 SHLD2"/>
+<connect gate="G$1" pin="OSC" pad="OUT"/>
+<connect gate="G$1" pin="VCC" pad="VCC"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="M100" package="TCXO-3.2X5">
+<connects>
+<connect gate="G$1" pin="GND" pad="4"/>
+<connect gate="G$1" pin="OSC" pad="5"/>
+<connect gate="G$1" pin="VCC" pad="8"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="DOT" package="TCXO-9X14">
+<connects>
+<connect gate="G$1" pin="GND" pad="3"/>
+<connect gate="G$1" pin="OSC" pad="4"/>
+<connect gate="G$1" pin="VCC" pad="6"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -3413,6 +3462,96 @@ Momentary and Push-on/Push-off with various color caps</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="SparkFun-PowerIC">
+<description>&lt;h3&gt;SparkFun Electronics' preferred foot prints&lt;/h3&gt;
+In this library you'll find drivers, regulators, and amplifiers.&lt;br&gt;&lt;br&gt;
+We've spent an enormous amount of time creating and checking these footprints and parts, but it is the end user's responsibility to ensure correctness and suitablity for a given componet or application. If you enjoy using this library, please buy one of our products at www.sparkfun.com.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
+&lt;br&gt;&lt;br&gt;
+You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
+<packages>
+<package name="SOT23-5">
+<description>&lt;b&gt;Small Outline Transistor&lt;/b&gt;</description>
+<wire x1="1.27" y1="0.4294" x2="1.27" y2="-0.4294" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="-0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
+<wire x1="-1.27" y1="-0.4294" x2="-1.27" y2="0.4294" width="0.2032" layer="21"/>
+<wire x1="-1.4" y1="0.8" x2="1.4" y2="0.8" width="0.1524" layer="51"/>
+<wire x1="-0.2684" y1="0.7088" x2="0.2684" y2="0.7088" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="0.8" x2="1.4" y2="-0.8" width="0.1524" layer="51"/>
+<wire x1="-1.4" y1="0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
+<rectangle x1="-1.2" y1="-1.5" x2="-0.7" y2="-0.85" layer="51"/>
+<rectangle x1="-0.25" y1="-1.5" x2="0.25" y2="-0.85" layer="51"/>
+<rectangle x1="0.7" y1="-1.5" x2="1.2" y2="-0.85" layer="51"/>
+<rectangle x1="0.7" y1="0.85" x2="1.2" y2="1.5" layer="51"/>
+<rectangle x1="-1.2" y1="0.85" x2="-0.7" y2="1.5" layer="51"/>
+<smd name="1" x="-0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="2" x="0" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="3" x="0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="4" x="0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="5" x="-0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
+<text x="-0.889" y="2.159" size="0.4064" layer="25">&gt;NAME</text>
+<text x="-0.9525" y="-0.1905" size="0.4064" layer="27">&gt;VALUE</text>
+<circle x="-1.6002" y="-1.016" radius="0.127" width="0" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="V-REG-LDO">
+<wire x1="-7.62" y1="-7.62" x2="5.08" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="-7.62" x2="5.08" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="7.62" x2="-7.62" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="-7.62" y1="7.62" x2="-7.62" y2="-7.62" width="0.4064" layer="94"/>
+<text x="-7.62" y="9.144" size="1.778" layer="95">&gt;NAME</text>
+<text x="-7.62" y="-11.43" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="IN" x="-10.16" y="5.08" visible="pin" length="short" direction="in"/>
+<pin name="GND" x="-10.16" y="0" visible="pin" length="short" direction="in"/>
+<pin name="OUT" x="7.62" y="5.08" visible="pin" length="short" direction="pas" rot="R180"/>
+<pin name="EN" x="-10.16" y="-5.08" visible="pin" length="short" direction="in"/>
+<pin name="BP" x="7.62" y="-5.08" visible="pin" length="short" direction="in" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="V_REG_MIC5219" prefix="U" uservalue="yes">
+<description>&lt;b&gt;V_REG MIC5219&lt;/b&gt;
+Standard 3.3V and 5V 500mA LDO voltage regulator in SOT-23 layout. Micrel part MIC5219. BP (by-pass) pin is used to lower output noise with 470pF cap, may be left open.</description>
+<gates>
+<gate name="G$1" symbol="V-REG-LDO" x="2.54" y="0"/>
+</gates>
+<devices>
+<device name="3.3V" package="SOT23-5">
+<connects>
+<connect gate="G$1" pin="BP" pad="4"/>
+<connect gate="G$1" pin="EN" pad="3"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="IN" pad="1"/>
+<connect gate="G$1" pin="OUT" pad="5"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="PROD_ID" value="VREG-09872"/>
+<attribute name="VALUE" value="MIC5219 3.3V" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="5V" package="SOT23-5">
+<connects>
+<connect gate="G$1" pin="BP" pad="4"/>
+<connect gate="G$1" pin="EN" pad="3"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="IN" pad="1"/>
+<connect gate="G$1" pin="OUT" pad="5"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="PROD_ID" value="VREG-10107"/>
+<attribute name="VALUE" value="MIC5219 5V" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3425,7 +3564,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </class>
 </classes>
 <parts>
-<part name="OSC1" library="playground" deviceset="TCXO-RTXO230LC" device=""/>
+<part name="OSC1" library="playground" deviceset="TCXO" device="RALTRON"/>
 <part name="GND8" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND2" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND1" library="SparkFun" deviceset="GND" device=""/>
@@ -3434,7 +3573,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 <part name="GND6" library="SparkFun" deviceset="GND" device=""/>
 <part name="SUPPLY2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC"/>
 <part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC"/>
-<part name="U1" library="SparkFun" deviceset="ATMEGA168" device="" value="ATMEGA328"/>
+<part name="U1" library="SparkFun" deviceset="ATMEGA168" device="" value="ATMEGA328P"/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC"/>
 <part name="GND4" library="SparkFun" deviceset="GND" device=""/>
 <part name="FTDI" library="SparkFun" deviceset="ARDUINO_SERIAL_PROGRAM" device="PTH" value="FTDI Basic"/>
@@ -3477,12 +3616,22 @@ Momentary and Push-on/Push-off with various color caps</description>
 <part name="FB2" library="ChipsParts" deviceset="FERRITE_BEAD" device="_0805" value="2.5k"/>
 <part name="GND14" library="SparkFun" deviceset="GND" device=""/>
 <part name="FRAME1" library="NewFrame" deviceset="FRAME_LTR_CU_MARK" device="">
-<attribute name="CNAME" value="Frequency Standard"/>
-<attribute name="CREVISION" value="Rev B"/>
+<attribute name="CNAME" value="Frequency Reference"/>
+<attribute name="CREVISION" value="Rev-B"/>
 <attribute name="DATECODE" value="2015"/>
 <attribute name="DESIGNER" value="C.Schnarel"/>
 </part>
 <part name="TP4" library="ChipsParts" deviceset="TEST_POINT" device=""/>
+<part name="OSC2" library="playground" deviceset="TCXO" device="M100"/>
+<part name="OSC3" library="playground" deviceset="TCXO" device="DOT"/>
+<part name="C10" library="ChipsParts" deviceset="CAP_POL" device="0805" value="10uF"/>
+<part name="C11" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="10nF"/>
+<part name="GND15" library="SparkFun" deviceset="GND" device=""/>
+<part name="C12" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="470pF"/>
+<part name="C13" library="ChipsParts" deviceset="CAP_POL" device="0805" value="10uF"/>
+<part name="U5" library="SparkFun-PowerIC" deviceset="V_REG_MIC5219" device="3.3V" value="MIC5219 3.3V"/>
+<part name="C14" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="50pF"/>
+<part name="GND16" library="SparkFun" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3493,8 +3642,10 @@ Momentary and Push-on/Push-off with various color caps</description>
 <text x="162.56" y="142.24" size="1.778" layer="91">// PC={G,D,A,B,E,C,Dp,F}
 // Segments scrambled
 //   to ease PCB layout</text>
-<text x="73.66" y="35.56" size="1.778" layer="91">BLK</text>
-<text x="73.66" y="20.32" size="1.778" layer="91">GRN</text>
+<text x="182.88" y="185.42" size="1.778" layer="91">BLK</text>
+<text x="182.88" y="170.18" size="1.778" layer="91">GRN</text>
+<text x="134.62" y="7.62" size="1.778" layer="91">Connor-Winfield
+M100F &amp; DOT050F</text>
 </plain>
 <instances>
 <instance part="OSC1" gate="G$1" x="35.56" y="86.36" smashed="yes">
@@ -3515,10 +3666,10 @@ Momentary and Push-on/Push-off with various color caps</description>
 </instance>
 <instance part="SUPPLY4" gate="G$1" x="63.5" y="116.84"/>
 <instance part="GND4" gate="1" x="63.5" y="53.34"/>
-<instance part="FTDI" gate="G$1" x="86.36" y="27.94"/>
-<instance part="J1" gate="G$1" x="40.64" y="50.8"/>
-<instance part="SUPPLY3" gate="G$1" x="53.34" y="55.88"/>
-<instance part="GND3" gate="1" x="58.42" y="40.64"/>
+<instance part="FTDI" gate="G$1" x="195.58" y="177.8"/>
+<instance part="J1" gate="G$1" x="233.68" y="180.34"/>
+<instance part="SUPPLY3" gate="G$1" x="246.38" y="185.42"/>
+<instance part="GND3" gate="1" x="251.46" y="170.18"/>
 <instance part="C3" gate="G$1" x="33.02" y="114.3" smashed="yes" rot="R90">
 <attribute name="NAME" x="31.496" y="118.999" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="36.576" y="111.379" size="1.778" layer="96" rot="R180"/>
@@ -3552,11 +3703,11 @@ Momentary and Push-on/Push-off with various color caps</description>
 <instance part="SUPPLY1" gate="G$1" x="35.56" y="96.52"/>
 <instance part="TP1" gate="G$1" x="127" y="68.58"/>
 <instance part="DISP1" gate="G$1" x="218.44" y="111.76" rot="R270"/>
-<instance part="J2" gate="G$1" x="149.86" y="66.04" rot="MR0"/>
-<instance part="GND10" gate="1" x="149.86" y="58.42"/>
-<instance part="S1" gate="G$1" x="187.96" y="58.42"/>
+<instance part="J2" gate="G$1" x="160.02" y="66.04" rot="MR0"/>
+<instance part="GND10" gate="1" x="160.02" y="58.42"/>
+<instance part="S1" gate="G$1" x="195.58" y="58.42"/>
 <instance part="U3" gate="G$1" x="157.48" y="124.46"/>
-<instance part="GND12" gate="1" x="165.1" y="55.88"/>
+<instance part="GND12" gate="1" x="172.72" y="55.88"/>
 <instance part="C2" gate="G$1" x="25.4" y="91.44" smashed="yes" rot="R180">
 <attribute name="NAME" x="21.844" y="92.075" size="1.778" layer="95"/>
 <attribute name="VALUE" x="26.035" y="88.392" size="1.778" layer="96" rot="R270"/>
@@ -3572,12 +3723,12 @@ Momentary and Push-on/Push-off with various color caps</description>
 <instance part="R4" gate="G$1" x="137.16" y="66.04"/>
 <instance part="TP2" gate="G$1" x="139.7" y="165.1"/>
 <instance part="GND13" gate="1" x="139.7" y="160.02"/>
-<instance part="TP3" gate="G$1" x="55.88" y="91.44"/>
+<instance part="TP3" gate="G$1" x="48.26" y="91.44"/>
 <instance part="FB2" gate="G$1" x="43.18" y="165.1" smashed="yes">
 <attribute name="NAME" x="37.846" y="167.386" size="1.778" layer="95"/>
 <attribute name="VALUE" x="44.323" y="162.179" size="1.778" layer="96"/>
 </instance>
-<instance part="GND14" gate="1" x="195.58" y="53.34"/>
+<instance part="GND14" gate="1" x="203.2" y="53.34"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0">
 <attribute name="CNAME" x="0" y="0" size="1.778" layer="96" display="off"/>
 <attribute name="CREVISION" x="0" y="0" size="1.778" layer="96" display="off"/>
@@ -3585,6 +3736,25 @@ Momentary and Push-on/Push-off with various color caps</description>
 <attribute name="DESIGNER" x="0" y="0" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="TP4" gate="G$1" x="58.42" y="86.36"/>
+<instance part="OSC2" gate="G$1" x="109.22" y="20.32"/>
+<instance part="OSC3" gate="G$1" x="132.08" y="20.32"/>
+<instance part="C10" gate="G$1" x="81.28" y="22.86"/>
+<instance part="C11" gate="G$1" x="91.44" y="20.32" smashed="yes">
+<attribute name="NAME" x="92.964" y="23.241" size="1.778" layer="95"/>
+<attribute name="VALUE" x="92.964" y="18.161" size="1.778" layer="96"/>
+</instance>
+<instance part="GND15" gate="1" x="116.84" y="5.08"/>
+<instance part="C12" gate="G$1" x="71.12" y="12.7" smashed="yes">
+<attribute name="NAME" x="72.644" y="15.621" size="1.778" layer="95"/>
+<attribute name="VALUE" x="72.644" y="10.541" size="1.778" layer="96"/>
+</instance>
+<instance part="C13" gate="G$1" x="38.1" y="22.86"/>
+<instance part="U5" gate="G$1" x="60.96" y="27.94"/>
+<instance part="C14" gate="G$1" x="144.78" y="58.42" smashed="yes">
+<attribute name="NAME" x="146.304" y="61.341" size="1.778" layer="95"/>
+<attribute name="VALUE" x="146.304" y="56.261" size="1.778" layer="96"/>
+</instance>
+<instance part="GND16" gate="1" x="144.78" y="53.34"/>
 </instances>
 <busses>
 </busses>
@@ -3640,19 +3810,19 @@ Momentary and Push-on/Push-off with various color caps</description>
 <pinref part="GND4" gate="1" pin="GND"/>
 </segment>
 <segment>
-<wire x1="91.44" y1="33.02" x2="99.06" y2="33.02" width="0.1524" layer="91"/>
-<label x="93.98" y="33.02" size="1.778" layer="95"/>
+<wire x1="200.66" y1="182.88" x2="208.28" y2="182.88" width="0.1524" layer="91"/>
+<label x="203.2" y="182.88" size="1.778" layer="95"/>
 <pinref part="FTDI" gate="G$1" pin="CTS"/>
 </segment>
 <segment>
-<wire x1="91.44" y1="35.56" x2="99.06" y2="35.56" width="0.1524" layer="91"/>
-<label x="93.98" y="35.56" size="1.778" layer="95"/>
+<wire x1="200.66" y1="185.42" x2="208.28" y2="185.42" width="0.1524" layer="91"/>
+<label x="203.2" y="185.42" size="1.778" layer="95"/>
 <pinref part="FTDI" gate="G$1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="6"/>
-<wire x1="50.8" y1="48.26" x2="58.42" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="48.26" x2="58.42" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="243.84" y1="177.8" x2="251.46" y2="177.8" width="0.1524" layer="91"/>
+<wire x1="251.46" y1="177.8" x2="251.46" y2="172.72" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -3685,8 +3855,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <pinref part="S1" gate="G$1" pin="COM"/>
 <pinref part="GND12" gate="1" pin="GND"/>
-<wire x1="170.18" y1="66.04" x2="165.1" y2="66.04" width="0.2032" layer="91"/>
-<wire x1="165.1" y1="66.04" x2="165.1" y2="58.42" width="0.2032" layer="91"/>
+<wire x1="177.8" y1="66.04" x2="172.72" y2="66.04" width="0.2032" layer="91"/>
+<wire x1="172.72" y1="66.04" x2="172.72" y2="58.42" width="0.2032" layer="91"/>
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="GND"/>
@@ -3703,8 +3873,43 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <pinref part="S1" gate="G$1" pin="P$5"/>
 <pinref part="GND14" gate="1" pin="GND"/>
-<wire x1="190.5" y1="63.5" x2="195.58" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="63.5" x2="195.58" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="63.5" x2="203.2" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="63.5" x2="203.2" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C10" gate="G$1" pin="-"/>
+<wire x1="81.28" y1="17.78" x2="81.28" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="OSC3" gate="G$1" pin="GND"/>
+<wire x1="81.28" y1="7.62" x2="91.44" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="7.62" x2="109.22" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="7.62" x2="116.84" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="7.62" x2="132.08" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="7.62" x2="132.08" y2="12.7" width="0.1524" layer="91"/>
+<pinref part="GND15" gate="1" pin="GND"/>
+<pinref part="OSC2" gate="G$1" pin="GND"/>
+<wire x1="109.22" y1="12.7" x2="109.22" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="C11" gate="G$1" pin="2"/>
+<wire x1="91.44" y1="17.78" x2="91.44" y2="7.62" width="0.1524" layer="91"/>
+<junction x="109.22" y="7.62"/>
+<junction x="116.84" y="7.62"/>
+<junction x="91.44" y="7.62"/>
+<wire x1="50.8" y1="27.94" x2="48.26" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="27.94" x2="48.26" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="7.62" x2="71.12" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="7.62" x2="81.28" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="C13" gate="G$1" pin="-"/>
+<wire x1="38.1" y1="17.78" x2="38.1" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="7.62" x2="48.26" y2="7.62" width="0.1524" layer="91"/>
+<junction x="48.26" y="7.62"/>
+<pinref part="C12" gate="G$1" pin="2"/>
+<wire x1="71.12" y1="10.16" x2="71.12" y2="7.62" width="0.1524" layer="91"/>
+<junction x="71.12" y="7.62"/>
+<junction x="81.28" y="7.62"/>
+<pinref part="U5" gate="G$1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C14" gate="G$1" pin="2"/>
+<pinref part="GND16" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="AREF" class="0">
@@ -3728,7 +3933,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="5"/>
-<wire x1="33.02" y1="48.26" x2="27.94" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="177.8" x2="220.98" y2="177.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCK" class="0">
@@ -3739,7 +3944,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="3"/>
-<wire x1="33.02" y1="50.8" x2="27.94" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="180.34" x2="220.98" y2="180.34" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MISO" class="0">
@@ -3750,7 +3955,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="1"/>
-<wire x1="33.02" y1="53.34" x2="27.94" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="182.88" x2="220.98" y2="182.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
@@ -3761,7 +3966,7 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="4"/>
-<wire x1="50.8" y1="50.8" x2="55.88" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="243.84" y1="180.34" x2="248.92" y2="180.34" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="TXO" class="0">
@@ -3771,8 +3976,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 <pinref part="U1" gate="G$1" pin="PD1(TXD)"/>
 </segment>
 <segment>
-<wire x1="91.44" y1="25.4" x2="99.06" y2="25.4" width="0.1524" layer="91"/>
-<label x="93.98" y="25.4" size="1.778" layer="95"/>
+<wire x1="200.66" y1="175.26" x2="208.28" y2="175.26" width="0.1524" layer="91"/>
+<label x="203.2" y="175.26" size="1.778" layer="95"/>
 <pinref part="FTDI" gate="G$1" pin="RXI"/>
 </segment>
 </net>
@@ -3837,8 +4042,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="2"/>
-<wire x1="50.8" y1="53.34" x2="53.34" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="53.34" x2="53.34" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="243.84" y1="182.88" x2="246.38" y2="182.88" width="0.1524" layer="91"/>
+<wire x1="246.38" y1="182.88" x2="246.38" y2="185.42" width="0.1524" layer="91"/>
 <pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
 </segment>
 <segment>
@@ -3852,6 +4057,20 @@ Momentary and Push-on/Push-off with various color caps</description>
 <wire x1="15.24" y1="96.52" x2="15.24" y2="93.98" width="0.2032" layer="91"/>
 <junction x="25.4" y="96.52"/>
 <junction x="35.56" y="96.52"/>
+</segment>
+<segment>
+<wire x1="50.8" y1="22.86" x2="45.72" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="22.86" x2="45.72" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="33.02" x2="45.72" y2="33.02" width="0.1524" layer="91"/>
+<pinref part="C13" gate="G$1" pin="+"/>
+<wire x1="45.72" y1="33.02" x2="38.1" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="33.02" x2="30.48" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="25.4" x2="38.1" y2="33.02" width="0.1524" layer="91"/>
+<junction x="45.72" y="33.02"/>
+<junction x="38.1" y="33.02"/>
+<label x="30.48" y="33.02" size="1.778" layer="95"/>
+<pinref part="U5" gate="G$1" pin="IN"/>
+<pinref part="U5" gate="G$1" pin="EN"/>
 </segment>
 </net>
 <net name="RAW" class="1">
@@ -3880,34 +4099,32 @@ Momentary and Push-on/Push-off with various color caps</description>
 <segment>
 <label x="116.84" y="86.614" size="1.778" layer="95"/>
 <pinref part="U1" gate="G$1" pin="PD2(INT0)"/>
-<wire x1="114.3" y1="86.36" x2="157.48" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="157.48" y1="86.36" x2="157.48" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="86.36" x2="165.1" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="86.36" x2="165.1" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="S1" gate="G$1" pin="B"/>
-<wire x1="162.56" y1="60.96" x2="170.18" y2="60.96" width="0.2032" layer="91"/>
-<wire x1="157.48" y1="60.96" x2="162.56" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="60.96" x2="177.8" y2="60.96" width="0.2032" layer="91"/>
+<wire x1="165.1" y1="60.96" x2="170.18" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="D3" class="0">
 <segment>
 <label x="116.84" y="84.074" size="1.778" layer="95"/>
 <pinref part="U1" gate="G$1" pin="PD3(INT1)"/>
-<wire x1="129.54" y1="83.82" x2="114.3" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="83.82" x2="162.56" y2="83.82" width="0.2032" layer="91"/>
+<wire x1="172.72" y1="83.82" x2="114.3" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="S1" gate="G$1" pin="A"/>
-<wire x1="165.1" y1="71.12" x2="170.18" y2="71.12" width="0.2032" layer="91"/>
-<wire x1="162.56" y1="83.82" x2="165.1" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="83.82" x2="165.1" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="71.12" x2="177.8" y2="71.12" width="0.2032" layer="91"/>
+<wire x1="172.72" y1="83.82" x2="172.72" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="D4" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PD4(XCK/T0)"/>
-<wire x1="114.3" y1="81.28" x2="129.54" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="81.28" x2="172.72" y2="81.28" width="0.1524" layer="91"/>
 <label x="116.84" y="81.534" size="1.778" layer="95"/>
-<wire x1="160.02" y1="81.28" x2="129.54" y2="81.28" width="0.2032" layer="91"/>
+<wire x1="167.64" y1="81.28" x2="172.72" y2="81.28" width="0.2032" layer="91"/>
 <pinref part="S1" gate="G$1" pin="P$4"/>
-<wire x1="160.02" y1="81.28" x2="190.5" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="81.28" x2="190.5" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="81.28" x2="198.12" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="81.28" x2="198.12" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="D6" class="0">
@@ -3923,8 +4140,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 </net>
 <net name="DTR" class="0">
 <segment>
-<wire x1="91.44" y1="22.86" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
-<label x="93.98" y="22.86" size="1.778" layer="95"/>
+<wire x1="200.66" y1="172.72" x2="208.28" y2="172.72" width="0.1524" layer="91"/>
+<label x="203.2" y="172.72" size="1.778" layer="95"/>
 <pinref part="FTDI" gate="G$1" pin="DTR"/>
 </segment>
 <segment>
@@ -3935,8 +4152,8 @@ Momentary and Push-on/Push-off with various color caps</description>
 </net>
 <net name="RXI" class="0">
 <segment>
-<wire x1="91.44" y1="27.94" x2="99.06" y2="27.94" width="0.1524" layer="91"/>
-<label x="93.98" y="27.94" size="1.778" layer="95"/>
+<wire x1="200.66" y1="177.8" x2="208.28" y2="177.8" width="0.1524" layer="91"/>
+<label x="203.2" y="177.8" size="1.778" layer="95"/>
 <pinref part="FTDI" gate="G$1" pin="TXO"/>
 </segment>
 <segment>
@@ -3991,14 +4208,27 @@ Momentary and Push-on/Push-off with various color caps</description>
 <pinref part="R4" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="N$5" class="0">
+<net name="OSCIN" class="0">
 <segment>
-<wire x1="66.04" y1="88.9" x2="55.88" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="88.9" x2="48.26" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="PB6(XTAL1/TOSC1)"/>
 <pinref part="OSC1" gate="G$1" pin="OSC"/>
 <pinref part="TP3" gate="G$1" pin="P$1"/>
-<wire x1="55.88" y1="88.9" x2="43.18" y2="88.9" width="0.1524" layer="91"/>
-<junction x="55.88" y="88.9"/>
+<wire x1="48.26" y1="88.9" x2="43.18" y2="88.9" width="0.1524" layer="91"/>
+<junction x="48.26" y="88.9"/>
+<label x="55.88" y="88.9" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="OSC2" gate="G$1" pin="OSC"/>
+<wire x1="116.84" y1="22.86" x2="119.38" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="22.86" x2="119.38" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="35.56" x2="142.24" y2="35.56" width="0.1524" layer="91"/>
+<pinref part="OSC3" gate="G$1" pin="OSC"/>
+<wire x1="142.24" y1="35.56" x2="147.32" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="22.86" x2="142.24" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="22.86" x2="142.24" y2="35.56" width="0.1524" layer="91"/>
+<junction x="142.24" y="35.56"/>
+<label x="144.78" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -4034,11 +4264,11 @@ Momentary and Push-on/Push-off with various color caps</description>
 </segment>
 <segment>
 <pinref part="FTDI" gate="G$1" pin="VCC"/>
-<wire x1="91.44" y1="30.48" x2="99.06" y2="30.48" width="0.1524" layer="91"/>
-<label x="93.98" y="30.48" size="1.778" layer="95"/>
+<wire x1="200.66" y1="180.34" x2="208.28" y2="180.34" width="0.1524" layer="91"/>
+<label x="203.2" y="180.34" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$31" class="0">
+<net name="VIN" class="0">
 <segment>
 <pinref part="SW1" gate="G$1" pin="2C"/>
 <pinref part="FB2" gate="G$1" pin="2"/>
@@ -4176,6 +4406,10 @@ Momentary and Push-on/Push-off with various color caps</description>
 <pinref part="J2" gate="G$1" pin="CTR"/>
 <pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="142.24" y1="66.04" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="C14" gate="G$1" pin="1"/>
+<wire x1="144.78" y1="66.04" x2="154.94" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="63.5" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
+<junction x="144.78" y="66.04"/>
 </segment>
 </net>
 <net name="N$13" class="0">
@@ -4183,6 +4417,34 @@ Momentary and Push-on/Push-off with various color caps</description>
 <pinref part="JP1" gate="G$1" pin="1"/>
 <wire x1="33.02" y1="165.1" x2="38.1" y2="165.1" width="0.2032" layer="91"/>
 <pinref part="FB2" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="N$14" class="0">
+<segment>
+<pinref part="OSC3" gate="G$1" pin="VCC"/>
+<wire x1="132.08" y1="30.48" x2="132.08" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="33.02" x2="109.22" y2="33.02" width="0.1524" layer="91"/>
+<pinref part="C10" gate="G$1" pin="+"/>
+<wire x1="109.22" y1="33.02" x2="91.44" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="33.02" x2="81.28" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="33.02" x2="68.58" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="25.4" x2="81.28" y2="33.02" width="0.1524" layer="91"/>
+<pinref part="C11" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="25.4" x2="91.44" y2="33.02" width="0.1524" layer="91"/>
+<pinref part="OSC2" gate="G$1" pin="VCC"/>
+<wire x1="109.22" y1="30.48" x2="109.22" y2="33.02" width="0.1524" layer="91"/>
+<junction x="81.28" y="33.02"/>
+<junction x="91.44" y="33.02"/>
+<junction x="109.22" y="33.02"/>
+<pinref part="U5" gate="G$1" pin="OUT"/>
+</segment>
+</net>
+<net name="N$15" class="0">
+<segment>
+<pinref part="C12" gate="G$1" pin="1"/>
+<wire x1="68.58" y1="22.86" x2="71.12" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="22.86" x2="71.12" y2="17.78" width="0.1524" layer="91"/>
+<pinref part="U5" gate="G$1" pin="BP"/>
 </segment>
 </net>
 </nets>
