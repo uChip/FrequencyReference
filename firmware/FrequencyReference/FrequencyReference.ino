@@ -87,12 +87,14 @@ uint8_t	chargen[] = {
 };
 
 // Lookup table for generating common frequencies
+#define TABLE_LENGTH 38
 static uint16_t commonFreq[] = {
   64246,  //        155.649
   49999,  //        200
   39999,  //        250
   24999,  //        400
   19999,  //        500
+  15999,  //        625
   12499,  //        800
   9999,   //      1,000
   7999,   //      1,250
@@ -101,6 +103,7 @@ static uint16_t commonFreq[] = {
   3199,   //      3,125
   2499,   //      4,000
   1999,   //      5,000
+  1599,   //      6,250
   1249,   //      8,000
   999,    //     10,000
   799,    //     12,500
@@ -108,6 +111,7 @@ static uint16_t commonFreq[] = {
   399,    //     25,000
   249,    //     40,000
   199,    //     50,000
+  159,    //     62,500
   124,    //     80,000
   99,     //    100,000
   79,     //    125,000
@@ -116,6 +120,7 @@ static uint16_t commonFreq[] = {
   31,     //    312,500
   24,     //    400,000
   19,     //    500,000
+  15,     //    625,000
   9,      //  1,000,000
   7,      //  1,250,000
   4,      //  2,000,000
@@ -151,6 +156,7 @@ static uint16_t dispFreq[] = {
    250,      //        250
    400,      //        400
    500,      //        500
+   625,      //        625
    800,      //        800
   1000,      //      1,000
   1250,      //      1,250
@@ -159,6 +165,7 @@ static uint16_t dispFreq[] = {
   3125,      //      3,125
   4000,      //      4,000
   5000,      //      5,000
+  6250,      //      6,250
   8000,      //      8,000
    100,      //     10,000
    125,      //     12,500
@@ -166,6 +173,7 @@ static uint16_t dispFreq[] = {
    250,      //     25,000
    400,      //     40,000
    500,      //     50,000
+   625,      //     62,500
    800,      //     80,000
   1000,      //    100,000
   1250,      //    125,000
@@ -174,6 +182,7 @@ static uint16_t dispFreq[] = {
   3125,      //    312,500
   4000,      //    400,000
   5000,      //    500,000
+  6250,      //    625,000
   1000,      //  1,000,000
   1250,      //  1,250,000
   2000,      //  2,000,000
@@ -257,7 +266,7 @@ void loop() {
     if(button.read() == HIGH) {
       mode = !mode; // if DIVISOR switch to TABLE_VALUES. if TABLE switch to DIVISOR.
       if(mode == TABLE_VALUES){
-        if(frqIdx > 33) frqIdx = 0;
+        if(frqIdx > (TABLE_LENGTH-1)) frqIdx = 0;
       }
       else {
         frqIdx = commonFreq[frqIdx];
@@ -379,7 +388,7 @@ boolean ParseCommand() {
 
   switch (CmdArray[2]) {
     case 'T': // set the index into the table
-      if(j>=0 && j<=33) {
+      if(j>=0 && j<=(TABLE_LENGTH-1)) {
         mode = TABLE_VALUES;
         frqIdx = j;
         retVal = true;
@@ -469,7 +478,7 @@ void displayFreq(uint16_t theValue){
   // then multiplex the display using the digits
   DispBCD = 0;
   uint8_t decimalPt = 0;
-  if(frqIdx < 33 && frqIdx >= 28) decimalPt = DP;
+  if(frqIdx < (TABLE_LENGTH-1) && frqIdx >= 32) decimalPt = DP;
   while(theValue >= 1000){DispBCD++; theValue-=1000;}
   if(DispBCD!=0) ShiftOut(chargen[DispBCD] | decimalPt);
   else ShiftOut(decimalPt);
@@ -481,7 +490,7 @@ void displayFreq(uint16_t theValue){
   
   DispBCD = 0;
   decimalPt = 0;
-  if(frqIdx == 33) decimalPt = DP;
+  if(frqIdx == (TABLE_LENGTH-1)) decimalPt = DP;
   while(theValue >= 100) {DispBCD++; theValue-=100;}
   ShiftOut(chargen[DispBCD] | decimalPt);
   digitalWrite(DIGIT_2, LOW);
@@ -492,7 +501,7 @@ void displayFreq(uint16_t theValue){
   
   DispBCD = 0;
   decimalPt = 0;
-  if(frqIdx < 28 && frqIdx >= 14) decimalPt = DP;
+  if(frqIdx < 32 && frqIdx >= 16) decimalPt = DP;
   while(theValue >= 10)  {DispBCD++; theValue-=10;}
   ShiftOut(chargen[DispBCD] | decimalPt);
   digitalWrite(DIGIT_3, LOW);
@@ -635,8 +644,8 @@ void checkRotary() {
   if (result) {
     result == DIR_CW ? frqIdx-- : frqIdx++;
     if(mode == TABLE_VALUES){
-      if(frqIdx < 0) frqIdx = 33;
-      if(frqIdx > 33) frqIdx = 0;
+      if(frqIdx < 0) frqIdx = (TABLE_LENGTH-1);
+      if(frqIdx > (TABLE_LENGTH-1)) frqIdx = 0;
     }
     else {
       if(frqIdx < 0) frqIdx = 65535;

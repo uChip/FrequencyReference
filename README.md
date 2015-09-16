@@ -31,7 +31,7 @@ NOTES
 
 ** Mostly.  All but the last are even numbered divisions of the master clock.  The last is the highest possible divisor, 65535, generating the lowest possible*** frequency.
 
-*** Not really.  The firmware configures the timer/counter to be driven by the system clock.  By reconfiguring, the timer/counter could instead be driven by a prescaled clock.  Prescaler values are 8, 64, 256, 1024, allowing for much lower frequency generation if needed.
+*** Not really.  The firmware configures the timer/counter to be driven by the system clock.  By reconfiguring, the timer/counter could instead be driven by a prescaled clock.  Prescaler values are 1, 8, 64, 256, 1024, allowing for much lower frequency generation if needed.  The prescaler value can be set via the USB interface.
 
 ## Order PCBs  
 
@@ -46,10 +46,11 @@ You can order this PCB directly from OSH Park.  Click on the following link.
 
 <img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAbottom.png" alt="PCB Bottom" height="425" width="510">
 
-See the Bill of Materials (BOM) file in the repo Hardware folder for a parts list.  
+See the Bill of Materials (BOM) file for a parts list.  
 
 ## Status  
-  * Rev A PCB and firmware have been tested to be functional. 
+  * Rev A PCB and firmware have been tested to be functional. Rev A is an earlier branch in this repo.  The design has since moved on to add support for other oscillators.
+  * Rev B Not yet complete or tested.
 
 ## File Formats  
 
@@ -59,7 +60,7 @@ The example code is in Arduino .ino format (text).  A free version of the Arduin
 
 ## Attributions
 
-While the board layout, circuit design and microcontroller firmware are all my own, the idea for this project grew out of the $3 Precision Frequency Standard thread started by paulie on EEVBlog forum  http://www.eevblog.com/forum/projects/3-dollar-precision-frequency-standard/  
+While the board layout, circuit design and microcontroller firmware are all my own, the idea for this project grew out of the 3 Dollar Precision Frequency Standard thread started by paulie on EEVBlog forum  http://www.eevblog.com/forum/projects/3-dollar-precision-frequency-standard/  
 
 ## Distribution License  
 
