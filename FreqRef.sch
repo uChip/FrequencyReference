@@ -3590,8 +3590,8 @@ Standard 3.3V and 5V 500mA LDO voltage regulator in SOT-23 layout. Micrel part M
 <part name="FB1" library="ChipsParts" deviceset="FERRITE_BEAD" device="_0805" value="2.5k"/>
 <part name="JP1" library="SparkFun-Connectors" deviceset="M02" device="POLAR" value="PWR_IN"/>
 <part name="SW1" library="StdBxLibrary_BETA_" deviceset="SWITCH,BUTTON,ROUND,7MM" device="" value="PWR"/>
-<part name="R2" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="15k"/>
-<part name="R3" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="5k"/>
+<part name="R2" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="10k"/>
+<part name="R3" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="3.3k"/>
 <part name="GND5" library="SparkFun" deviceset="GND" device=""/>
 <part name="D1" library="SparkFun-DiscreteSemi" deviceset="DIODE-ZENER" device="3.3V" value="5V"/>
 <part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
