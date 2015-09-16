@@ -7,7 +7,7 @@ Programmable Frequency Reference
 This repository contains the design files and write-up for a Programmable Frequency Reference board based on the RALTRON RTX0230LC*.  The RTX0230LC is a ~1ppm accurate and stable crystal oscillator.  It is temperature compensated and tunable.  The oscillator drives the master clock of an ATmega328 microcontroller which then generates the output frequency by dividing down the master clock.  The ~2Vpp output signal is available on the BNC connector and has been impedance matched to 50 Ohms.
 
 A set of common (and even**) frequencies from 10 MHz down to 152.6 Hz is selectable via a rotary encoder.  As each frequency is selected a representation of that frequency is shown on the display.  The following table shows the frequencies available and the displayed value.
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="656" width="486">
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/FrequencyTable.png" alt="Common Frequency Table" height="699" width="467">
 
 NOTE that the display is NOT a measure of the produced frequency.
 
@@ -40,7 +40,7 @@ NOTES
 If there is sufficient interest I will build and calibrate a batch of these to sell.  If you would like one, please contact me.
 
 You can order this PCB directly from OSH Park.  Click on the following link.  
-  * Programmable Frequency Reference - https://oshpark.com/shared_projects/aFUNW4O5 
+  * Programmable Frequency Reference - https://oshpark.com/shared_projects/a4BIq3K5 
 
 <img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/revAtop.png" alt="PCB Top" height="425" width="500">
 
