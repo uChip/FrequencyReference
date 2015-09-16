@@ -11,7 +11,7 @@
 
 	@section  HISTORY
 
-    2015-Sep-3  - First release, C. Schnarel
+    2015-Sep-16  - First public release, C. Schnarel
 */
 /**************************************************************************/
 
@@ -25,8 +25,8 @@
 //#include <ProfileTimer.h>
 //#include <SPI.h>
 //#include <EEPROM.h>
-#include <Rotary.h>
-#include <Bounce.h>
+#include <Rotary.h>         // https://github.com/brianlow/Rotary
+#include <Bounce.h>         // http://playground.arduino.cc/Code/Bounce
 #include <Timer1.h>
 
 // Pins to drive Segment Shift Register

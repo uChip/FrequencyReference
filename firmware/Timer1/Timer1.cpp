@@ -12,7 +12,7 @@
 
 	@section  HISTORY
 
-    2015-Sep-2  - First release, C. Schnarel
+    2015-Sep-16  - First public release, C. Schnarel
 */
 /**************************************************************************/
 
