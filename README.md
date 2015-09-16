@@ -1,7 +1,8 @@
 Programmable Frequency Reference   
 ================================  
 
-<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/board.jpg" alt="Programmable Frequency Reference with 1 ppm accuracy" height="266" width="400">  
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/setup.jpg" alt="Programmable Frequency Reference with 1 ppm accuracy" height="266" width="400">  
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/screenshot.png" alt="Screen capture of 10 MHz Frequency Reference signal" height="240" width="400">  
 
 This repository contains the design files and write-up for a Programmable Frequency Reference board based on the RALTRON RTX0230LC*.  The RTX0230LC is a ~1ppm accurate and stable crystal oscillator.  It is temperature compensated and tunable.  The oscillator drives the master clock of an ATmega328 microcontroller which then generates the output frequency by dividing down the master clock.  The ~2Vpp output signal is available on the BNC connector and has been impedance matched to 50 Ohms.
 
@@ -33,6 +34,8 @@ NOTES
 *** Not really.  The firmware configures the timer/counter to be driven by the system clock.  By reconfiguring, the timer/counter could instead be driven by a prescaled clock.  Prescaler values are 8, 64, 256, 1024, allowing for much lower frequency generation if needed.
 
 ## Order PCBs  
+
+<img src="https://raw.githubusercontent.com/uChip/FrequencyReference/master/board.jpg" alt="Programmable Frequency Reference with 1 ppm accuracy" height="266" width="400">
 
 If there is sufficient interest I will build and calibrate a batch of these to sell.  If you would like one, please contact me.
 
