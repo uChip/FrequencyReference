@@ -4,21 +4,20 @@
     @author   C. Schnarel
 	@license  BSD (see license.txt)
 	
-	Application firmware for the Frequency Reference hardware.
+    Application firmware for the Frequency Reference hardware.
        Rotary encoder UI, USB remote control, 7-segment display, and
        programmable divider (timer/counter1) that divides the system clock
        providing a selectable frequency, 50% duty cycle square-wave output.
 
-	@section  HISTORY
+    @section  HISTORY
 
     2015-Sep-16  - First public release, C. Schnarel
 */
 /**************************************************************************/
 
-/**************************************************************************/
 /*
   To get F_CPU = 20000000L make appropriate changes to boards.txt
-  in the Arduino IDE.
+  in the Arduino IDE.  See README in firmware folder.
 */
 
 // Include libraries this sketch will use
@@ -27,7 +26,7 @@
 //#include <EEPROM.h>
 #include <Rotary.h>         // https://github.com/brianlow/Rotary
 #include <Bounce.h>         // http://playground.arduino.cc/Code/Bounce
-#include <Timer1.h>
+#include <Timer1.h>         // in firmware folder
 
 // Pins to drive Segment Shift Register
 #define SR_DATA A0
@@ -50,6 +49,13 @@
 #define DIGIT_3 6
 #define DIGIT_4 5
 
+// Battery level measurement
+#define BATT_SENSE A2
+
+// Frequency Signal Out
+#define F_OUT 9
+
+
 // This sets the delay time for frame rate
 // The value is repeated for each of the digits on the display so 
 //   frame rate = 1 / (4 * DIGIT_TIME(uS)) -> 125 Hz
@@ -61,10 +67,10 @@
 // send the divisor value directly to the divider
 #define DIVISOR false
 
-// PC={G,D,A,B,E,C,Dp,F}
-#define DP 0x02
 // Segments scrambled
 //   to ease PCB layout
+//   PC={G,D,A,B,E,C,Dp,F}
+#define DP 0x02
 // Character generator for 7-segment displays
 uint8_t	chargen[] = {
 0b01111101,  // 0  '0'
@@ -128,30 +134,10 @@ static uint16_t commonFreq[] = {
   1,      //  5,000,000
   0,      // 10,000,000
 };
-// 16MHz clock
-// D=0; 8.00MHz
-// D=1; 4.00
-// D=2; 2.67
-// D=3; 2.00
-// D=4; 1.60
-// D=5; 1.33
-// D=6; 1.14
-// D=7; 1.00
-// D=9; 800kHz
-// D=19; 400
-// D=24; 320
-// D=31; 250
-// D=39; 200
-// D=99; 80.0kHz
-// D=999; 8.00kHz
-// D=9999; 800Hz
-// D=49999; 160Hz
-// D=64246; 124.65Hz
-// D=65535; 152.588
 
 // Lookup table for display values that go with common frequencies
 static uint16_t dispFreq[] = {
-   156,      //        152.59
+   156,      //        155.65
    200,      //        200
    250,      //        250
    400,      //        400
@@ -190,12 +176,6 @@ static uint16_t dispFreq[] = {
   5000,      //  5,000,000
   1000,      // 10,000,000
 };
-
-// Battery level measurement
-#define BATT_SENSE A2
-
-// Frequency Signal Out
-#define F_OUT 9
 
 // Instantiate objects used in this project
 Rotary r = Rotary(ROT_A, ROT_B);
@@ -277,7 +257,7 @@ void loop() {
     }
   }
   
-  // Check the rotary and change frequency if it was turned
+  // Check the rotary
   checkRotary();
   
   // Check if serial data is available
@@ -302,7 +282,7 @@ void loop() {
   }  
 
   // If the value has changed, send 
-  // the new divisor to T0 and the serial port
+  // the new divisor to Timer1 and the serial port
   if(newVal) {
     Serial.print("frqIdx = ");
     Serial.println(frqIdx);
@@ -519,7 +499,7 @@ void displayFreq(uint16_t theValue){
 
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
 // Refresh the display (perform one pass thru the multiplexor)
-//   Displays a 16-bit binary integer as a 3-digit decimal value
+//   Displays a 16-bit binary integer as a 4-digit decimal value
 //   Decimal fixed
 //   Checks for encoder input while flashing each digit
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|

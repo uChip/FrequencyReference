@@ -9,7 +9,9 @@
 	
 	This is a library to control ATMega microcontroller timer/counter1
 	as a programmable frequency generator. Counter divides the system clock
-	F_CLK by the specified divisor times two. F_OUT = F_CLK / (2 * divisor)
+	F_CLK per the following
+
+           F_OUT = F_CLK / (2 * ( divisor + 1 ))
 
 	Output is on OC1A (B1 on the ATmega328, D9 on Arduino Uno)
 
