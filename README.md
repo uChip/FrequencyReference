@@ -56,7 +56,11 @@ See the Bill of Materials (BOM) file for a parts list.
 
 Hardware design files are in "CadSoft EAGLE PCB Design Software" .brd and .sch formats.  A free version of the software can be downloaded from www.cadsoftusa.com. 
 
-The example code is in Arduino .ino format (text).  A free version of the Arduino software can be downloaded from www.arduino.cc.  
+The example code is in Arduino .ino format (text).  A free version of the Arduino software can be downloaded from www.arduino.cc. 
+
+Documentation is generally done in Wordpad .rtf and Excel .xlsx.
+
+Viewable versions of layout, schematic and documentation are generally available in common formats such as .pdf, .png, .jpg, .txt, etc.   
 
 ## Attributions
 
