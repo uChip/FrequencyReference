@@ -1,9 +1,9 @@
 /**************************************************************************/
-/*! 
+/*!
     @file     FrequencyReference.ino
     @author   C. Schnarel
 	@license  BSD (see license.txt)
-	
+
     Application firmware for the Frequency Reference hardware.
        Rotary encoder UI, USB remote control, 7-segment display, and
        programmable divider (timer/counter1) that divides the system clock
@@ -57,7 +57,7 @@
 
 
 // This sets the delay time for frame rate
-// The value is repeated for each of the digits on the display so 
+// The value is repeated for each of the digits on the display so
 //   frame rate = 1 / (4 * DIGIT_TIME(uS)) -> 125 Hz
 #define DIGIT_TIME 2000
 
@@ -73,23 +73,23 @@
 #define DP 0x02
 // Character generator for 7-segment displays
 uint8_t	chargen[] = {
-0b01111101,  // 0  '0'
-0b00010100,  // 1  '1'
-0b11111000,  // 2  '2'
-0b11110100,  // 3  '3'
-0b10010101,  // 4  '4'
-0b11100101,  // 5  '5'
-0b11101101,  // 6  '6'
-0b00110100,  // 7  '7'
-0b11111101,  // 8  '8'
-0b11110101,  // 9  '9'
-0b10111101,  // 10  'A'
-0b11001101,  // 11  'B'
-0b01101001,  // 12  'C'
-0b11011100,  // 13  'D'
-0b11101001,  // 14  'E'
-0b10101001,  // 15  'F'
-0b00000000   // 16  ' '
+  0b01111101,  // 0  '0'
+  0b00010100,  // 1  '1'
+  0b11111000,  // 2  '2'
+  0b11110100,  // 3  '3'
+  0b10010101,  // 4  '4'
+  0b11100101,  // 5  '5'
+  0b11101101,  // 6  '6'
+  0b00110100,  // 7  '7'
+  0b11111101,  // 8  '8'
+  0b11110101,  // 9  '9'
+  0b10111101,  // 10  'A'
+  0b11001101,  // 11  'B'
+  0b01101001,  // 12  'C'
+  0b11011100,  // 13  'D'
+  0b11101001,  // 14  'E'
+  0b10101001,  // 15  'F'
+  0b00000000   // 16  ' '
 };
 
 // Lookup table for generating common frequencies
@@ -137,13 +137,13 @@ static uint16_t commonFreq[] = {
 
 // Lookup table for display values that go with common frequencies
 static uint16_t dispFreq[] = {
-   156,      //        155.65
-   200,      //        200
-   250,      //        250
-   400,      //        400
-   500,      //        500
-   625,      //        625
-   800,      //        800
+  156,      //        155.65
+  200,      //        200
+  250,      //        250
+  400,      //        400
+  500,      //        500
+  625,      //        625
+  800,      //        800
   1000,      //      1,000
   1250,      //      1,250
   2000,      //      2,000
@@ -153,14 +153,14 @@ static uint16_t dispFreq[] = {
   5000,      //      5,000
   6250,      //      6,250
   8000,      //      8,000
-   100,      //     10,000
-   125,      //     12,500
-   200,      //     20,000
-   250,      //     25,000
-   400,      //     40,000
-   500,      //     50,000
-   625,      //     62,500
-   800,      //     80,000
+  100,      //     10,000
+  125,      //     12,500
+  200,      //     20,000
+  250,      //     25,000
+  400,      //     40,000
+  500,      //     50,000
+  625,      //     62,500
+  800,      //     80,000
   1000,      //    100,000
   1250,      //    125,000
   2000,      //    200,000
@@ -207,28 +207,28 @@ void setup() {
 
   // set up the button input pin
   pinMode(BUTTON, INPUT_PULLUP);
-  
+
   // set up the display SR control pins
   pinMode(SR_DATA, OUTPUT);
   pinMode(SR_CLK, OUTPUT);
-  
+
   // set up the digit control pins
   pinMode(DIGIT_1, OUTPUT);
   pinMode(DIGIT_2, OUTPUT);
   pinMode(DIGIT_3, OUTPUT);
   pinMode(DIGIT_4, OUTPUT);
-  
+
   // set up frequency output pin
   pinMode(F_OUT, OUTPUT);
-  
+
   // now do the startup dance to check the display & LEDs
   startup = true;
   startTime = millis() + 5000;
-  while(startup) startLoop();
-  
+  while (startup) startLoop();
+
   // WARNING: CAN'T USE PWM (analog out) AFTER THIS
   freqDivider.begin();  // Set up counter 1 to be frequency divider
-  
+
 } // End of setup()
 
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
@@ -239,77 +239,77 @@ void setup() {
 //   Drives the display refresh/multiplexing
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
 void loop() {
-  
+
   // Change the mode if the button was pressed
   // If that puts index out of range then fix it
-  if(button.update()) {
-    if(button.read() == HIGH) {
+  if (button.update()) {
+    if (button.read() == HIGH) {
       mode = !mode; // if DIVISOR switch to TABLE_VALUES. if TABLE switch to DIVISOR.
-      if(mode == TABLE_VALUES){
-        if(frqIdx > (TABLE_LENGTH-1)) frqIdx = 0;
+      if (mode == TABLE_VALUES) {
+        if (frqIdx > (TABLE_LENGTH - 1)) frqIdx = 0;
       }
       else {
         frqIdx = commonFreq[frqIdx];
-        if(frqIdx < 0) frqIdx = 65535;
-        if(frqIdx > 65535) frqIdx = 0;
+        if (frqIdx < 0) frqIdx = 65535;
+        if (frqIdx > 65535) frqIdx = 0;
       }
       newVal = true;
     }
   }
-  
+
   // Check the rotary
   checkRotary();
-  
+
   // Check if serial data is available
   // if so, try to build a command message from the data
   while (Serial.available())
   {
     sdata = Serial.read();
-    switch (sdata){
-    case '#': // start of command packet
-      CmdArrayIdx = 0;
-      CmdArray[CmdArrayIdx++] = sdata;
-      break;
-    case '.': // command packet terminator
-      CmdArray[CmdArrayIdx] = sdata;
-      if(ParseCommand())
-        newVal = true;
-      break;
-    default:
-      CmdArray[CmdArrayIdx++] = sdata;
-      if(CmdArrayIdx>8) CmdArrayIdx = 8;
+    switch (sdata) {
+      case '#': // start of command packet
+        CmdArrayIdx = 0;
+        CmdArray[CmdArrayIdx++] = sdata;
+        break;
+      case '.': // command packet terminator
+        CmdArray[CmdArrayIdx] = sdata;
+        if (ParseCommand())
+          newVal = true;
+        break;
+      default:
+        CmdArray[CmdArrayIdx++] = sdata;
+        if (CmdArrayIdx > 8) CmdArrayIdx = 8;
     }
-  }  
+  }
 
-  // If the value has changed, send 
+  // If the value has changed, send
   // the new divisor to Timer1 and the serial port
-  if(newVal) {
+  if (newVal) {
     Serial.print("frqIdx = ");
     Serial.println(frqIdx);
-    if(mode == TABLE_VALUES) {
+    if (mode == TABLE_VALUES) {
       freqDivider.setDivisor(commonFreq[frqIdx]);
     }
     else freqDivider.setDivisor(frqIdx);
-    
+
     newVal = false;
   }
-        
+
   // Check for low battery
   analogRead(BATT_SENSE); // read the first time to switch to the correct input and allow it to settle
   // raw ADC count = minBatteryLevel(5.3V) * voltageDivider(3.3/13.3) / (Vref(5.0)/resolution(1024))
   //if(analogRead(BATT_SENSE) < 5.3/4/(5.0/1024)) show battery low on the display
   int charge = analogRead(BATT_SENSE);  // take another reading that should be stable
-  if(charge < 269) batt_lo = true; // if battery level is under 5.3v turn the warning on
+  if (charge < 269) batt_lo = true; // if battery level is under 5.3v turn the warning on
   else batt_lo = false; // otherwise turn the warning off
-  if(charge < 54) batt_lo = false; // but we wouldn't be running if it was THAT low so must be USB
-  
+  if (charge < 54) batt_lo = false; // but we wouldn't be running if it was THAT low so must be USB
+
   // Refresh the display (perform one pass thru the multiplexor)
   if (batt_lo) displayRaw((uint16_t)0x02020202);
-  else if(mode == TABLE_VALUES) {
+  else if (mode == TABLE_VALUES) {
     displayFreq(dispFreq[frqIdx]);
   }
   else displayHex(frqIdx);
-  
+
 }  // End of loop()
 
 
@@ -354,45 +354,45 @@ boolean ParseCommand() {
   uint16_t j = 0;
   boolean retVal = false;
 
-  if(CmdArray[0] != '#') return false;  // bad packet format
-  if(CmdArray[1] != 'b') return false;  // bad packet format
-  if(CmdArray[8] != '.') return false;  // bad packet format
-  if(CmdArrayIdx != 8) return false;  // bad packet length
+  if (CmdArray[0] != '#') return false; // bad packet format
+  if (CmdArray[1] != 'b') return false; // bad packet format
+  if (CmdArray[8] != '.') return false; // bad packet format
+  if (CmdArrayIdx != 8) return false; // bad packet length
 
-  for(i=0;i<5;i++){
-    c = CmdArray[i+3];
-    if(c<48 || c>57) return false;
-    j = j*10 + (c-48); // '0'==48
+  for (i = 0; i < 5; i++) {
+    c = CmdArray[i + 3];
+    if (c < 48 || c > 57) return false;
+    j = j * 10 + (c - 48); // '0'==48
   }
-//  Serial.println(j);
+  //  Serial.println(j);
 
   switch (CmdArray[2]) {
     case 'T': // set the index into the table
-      if(j>=0 && j<=(TABLE_LENGTH-1)) {
+      if (j >= 0 && j <= (TABLE_LENGTH - 1)) {
         mode = TABLE_VALUES;
         frqIdx = j;
         retVal = true;
       }
       break;
     case 'D': // set the divisor value
-      if(j>=0 && j<=65535) {
+      if (j >= 0 && j <= 65535) {
         mode = DIVISOR;
         frqIdx = j;
         retVal = true;
       }
       break;
     case 'P':
-      if(j>=0 && j<=5) {
+      if (j >= 0 && j <= 5) {
         freqDivider.setPrescaler((uint8_t)j);
         retVal = false;
       }
       break;
     case 'M':
-      if(j==0) {
+      if (j == 0) {
         mode = TABLE_VALUES;
         retVal = true;
       }
-      else if(j==1) {
+      else if (j == 1) {
         mode = DIVISOR;
         retVal = true;
       }
@@ -401,7 +401,7 @@ boolean ParseCommand() {
       retVal = false;
   }
 
-  for(i=0;i<9;i++)CmdArray[i] = 0;
+  for (i = 0; i < 9; i++)CmdArray[i] = 0;
   CmdArrayIdx = 0;
   return retVal;
 }  // End of ParseCommand()
@@ -409,40 +409,40 @@ boolean ParseCommand() {
 //=====================================================================
 // Do some flashy stuff to show display works and display battery level
 //=====================================================================
-void startLoop(){
+void startLoop() {
   int16_t raw = 0;
   int16_t voltage = 0;
-//  digitalWrite(BATT_LO, HIGH);
-// PC={G,D,A,B,E,C,Dp,F}
-  if(millis()<(startTime - 4900))      displayRaw(0x02020202); // Dp
-  else if(millis()<(startTime - 4800)) displayRaw(0x80808080); // G
-  else if(millis()<(startTime - 4700)) displayRaw(0x01010101); // F
-  else if(millis()<(startTime - 4600)) displayRaw(0x20202020); // A
-  else if(millis()<(startTime - 4500)) displayRaw(0x10101010); // B
-  else if(millis()<(startTime - 4400)) displayRaw(0x04040404); // C
-  else if(millis()<(startTime - 4300)) displayRaw(0x40404040); // D
-  else if(millis()<(startTime - 4200)) displayRaw(0x08080808); // E
-  else if(millis()<(startTime - 4100)) displayRaw(0x02020202); // Dp
-  else if(millis()<(startTime - 4000)) displayRaw(0x80808080); // G
-  else if(millis()<(startTime - 3900)) displayRaw(0x01010101); // F
-  else if(millis()<(startTime - 3800)) displayRaw(0x20202020); // A
-  else if(millis()<(startTime - 3700)) displayRaw(0x10101010); // B
-  else if(millis()<(startTime - 3600)) displayRaw(0x04040404); // C
-  else if(millis()<(startTime - 3500)) displayRaw(0x40404040); // D
-  else if(millis()<(startTime - 3400)) displayRaw(0x08080808); // E
-  else if(millis()<(startTime - 3000)) displayRaw(0xFFFFFFFF); // '8888'
-  else if(millis()<(startTime - 2500)) displayRaw(0x00000000); // '    '
-  else if(millis()<(startTime -  500)) {
-    for(uint8_t i=0;i<10;i++){
+  //  digitalWrite(BATT_LO, HIGH);
+  // PC={G,D,A,B,E,C,Dp,F}
+  if (millis() < (startTime - 4900))      displayRaw(0x02020202); // Dp
+  else if (millis() < (startTime - 4800)) displayRaw(0x80808080); // G
+  else if (millis() < (startTime - 4700)) displayRaw(0x01010101); // F
+  else if (millis() < (startTime - 4600)) displayRaw(0x20202020); // A
+  else if (millis() < (startTime - 4500)) displayRaw(0x10101010); // B
+  else if (millis() < (startTime - 4400)) displayRaw(0x04040404); // C
+  else if (millis() < (startTime - 4300)) displayRaw(0x40404040); // D
+  else if (millis() < (startTime - 4200)) displayRaw(0x08080808); // E
+  else if (millis() < (startTime - 4100)) displayRaw(0x02020202); // Dp
+  else if (millis() < (startTime - 4000)) displayRaw(0x80808080); // G
+  else if (millis() < (startTime - 3900)) displayRaw(0x01010101); // F
+  else if (millis() < (startTime - 3800)) displayRaw(0x20202020); // A
+  else if (millis() < (startTime - 3700)) displayRaw(0x10101010); // B
+  else if (millis() < (startTime - 3600)) displayRaw(0x04040404); // C
+  else if (millis() < (startTime - 3500)) displayRaw(0x40404040); // D
+  else if (millis() < (startTime - 3400)) displayRaw(0x08080808); // E
+  else if (millis() < (startTime - 3000)) displayRaw(0xFFFFFFFF); // '8888'
+  else if (millis() < (startTime - 2500)) displayRaw(0x00000000); // '    '
+  else if (millis() < (startTime -  500)) {
+    for (uint8_t i = 0; i < 10; i++) {
       raw += analogRead(BATT_SENSE);
-    }  
+    }
     voltage = (int16_t)((float)(raw) * .19679214);
-    if(voltage > 100) displayVoltage(voltage); // Display battery voltage
+    if (voltage > 100) displayVoltage(voltage); // Display battery voltage
     else displayRaw(0x5DE5FD00);  // 'USB '
   }
   else displayRaw(0x00000000); // '    '
-  
-  if(millis()>startTime){
+
+  if (millis() > startTime) {
     startup = false;
   }
 }  // end startLoop()
@@ -453,43 +453,52 @@ void startLoop(){
 //   Decimal placed per lookup table
 //   Checks for encoder input while flashing each digit
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
-void displayFreq(uint16_t theValue){
+void displayFreq(uint16_t theValue) {
   // Convert the binary integer value into decimal digits
   // then multiplex the display using the digits
   DispBCD = 0;
   uint8_t decimalPt = 0;
-  if(frqIdx < (TABLE_LENGTH-1) && frqIdx >= 32) decimalPt = DP;
-  while(theValue >= 1000){DispBCD++; theValue-=1000;}
-  if(DispBCD!=0) ShiftOut(chargen[DispBCD] | decimalPt);
+  if (frqIdx < (TABLE_LENGTH - 1) && frqIdx >= 32) decimalPt = DP;
+  while (theValue >= 1000) {
+    DispBCD++;
+    theValue -= 1000;
+  }
+  if (DispBCD != 0) ShiftOut(chargen[DispBCD] | decimalPt);
   else ShiftOut(decimalPt);
   digitalWrite(DIGIT_1, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_1, HIGH);
 
   checkRotary();
-  
+
   DispBCD = 0;
   decimalPt = 0;
-  if(frqIdx == (TABLE_LENGTH-1)) decimalPt = DP;
-  while(theValue >= 100) {DispBCD++; theValue-=100;}
+  if (frqIdx == (TABLE_LENGTH - 1)) decimalPt = DP;
+  while (theValue >= 100) {
+    DispBCD++;
+    theValue -= 100;
+  }
   ShiftOut(chargen[DispBCD] | decimalPt);
   digitalWrite(DIGIT_2, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_2, HIGH);
 
   checkRotary();
-  
+
   DispBCD = 0;
   decimalPt = 0;
-  if(frqIdx < 32 && frqIdx >= 16) decimalPt = DP;
-  while(theValue >= 10)  {DispBCD++; theValue-=10;}
+  if (frqIdx < 32 && frqIdx >= 16) decimalPt = DP;
+  while (theValue >= 10)  {
+    DispBCD++;
+    theValue -= 10;
+  }
   ShiftOut(chargen[DispBCD] | decimalPt);
   digitalWrite(DIGIT_3, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_3, HIGH);
 
   checkRotary();
-  
+
   ShiftOut(chargen[theValue]);
   digitalWrite(DIGIT_4, LOW);
   delayMicroseconds(DIGIT_TIME);
@@ -503,37 +512,46 @@ void displayFreq(uint16_t theValue){
 //   Decimal fixed
 //   Checks for encoder input while flashing each digit
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
-void displayVoltage(uint16_t theValue){
+void displayVoltage(uint16_t theValue) {
   // Convert the binary integer value into decimal digits
   // then multiplex the display using the digits
   DispBCD = 0;
-  while(theValue >= 1000){DispBCD++; theValue-=1000;}
-  if(DispBCD!=0) ShiftOut(chargen[DispBCD]);
+  while (theValue >= 1000) {
+    DispBCD++;
+    theValue -= 1000;
+  }
+  if (DispBCD != 0) ShiftOut(chargen[DispBCD]);
   else ShiftOut(chargen[16]);
   digitalWrite(DIGIT_1, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_1, HIGH);
 
   checkRotary();
-  
+
   DispBCD = 0;
-  while(theValue >= 100) {DispBCD++; theValue-=100;}
+  while (theValue >= 100) {
+    DispBCD++;
+    theValue -= 100;
+  }
   ShiftOut(chargen[DispBCD] | DP);
   digitalWrite(DIGIT_2, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_2, HIGH);
 
   checkRotary();
-  
+
   DispBCD = 0;
-  while(theValue >= 10)  {DispBCD++; theValue-=10;}
+  while (theValue >= 10)  {
+    DispBCD++;
+    theValue -= 10;
+  }
   ShiftOut(chargen[DispBCD]);
   digitalWrite(DIGIT_3, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_3, HIGH);
 
   checkRotary();
-  
+
   ShiftOut(chargen[theValue]);
   digitalWrite(DIGIT_4, LOW);
   delayMicroseconds(DIGIT_TIME);
@@ -546,33 +564,33 @@ void displayVoltage(uint16_t theValue){
 //   Displays a 16-bit binary integer as a 4-digit hexidecimal value
 //   Checks for encoder input while refreshing each digit
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
-void displayHex(int32_t theValue){
+void displayHex(int32_t theValue) {
   // Convert the binary integer value into hexidecimal digits
   // then multiplex the display using the digits
-  DispBCD = (theValue & 0xF000)>>12;
+  DispBCD = (theValue & 0xF000) >> 12;
   ShiftOut(chargen[DispBCD]);
   digitalWrite(DIGIT_1, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_1, HIGH);
 
   checkRotary();
-  
-  DispBCD = (theValue & 0xF00)>>8;
+
+  DispBCD = (theValue & 0xF00) >> 8;
   ShiftOut(chargen[DispBCD]);
   digitalWrite(DIGIT_2, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_2, HIGH);
 
   checkRotary();
-  
-  DispBCD = (theValue & 0xF0)>>4;
+
+  DispBCD = (theValue & 0xF0) >> 4;
   ShiftOut(chargen[DispBCD]);
   digitalWrite(DIGIT_3, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_3, HIGH);
 
   checkRotary();
-  
+
   ShiftOut(chargen[(theValue & 0xF)]);
   digitalWrite(DIGIT_4, LOW);
   delayMicroseconds(DIGIT_TIME);
@@ -585,30 +603,30 @@ void displayHex(int32_t theValue){
 //   Displays a raw binary value as LED segments
 //   Checks for encoder input while flashing each digit
 //-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|=-=|
-void displayRaw(uint32_t theValue){
+void displayRaw(uint32_t theValue) {
   // Convert the binary integer value into 4 chars
   // then multiplex the display using the chars
-  ShiftOut(theValue>>24);
+  ShiftOut(theValue >> 24);
   digitalWrite(DIGIT_1, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_1, HIGH);
 
   checkRotary();
-  
-  ShiftOut(theValue>>16 & 0xFF);
+
+  ShiftOut(theValue >> 16 & 0xFF);
   digitalWrite(DIGIT_2, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_2, HIGH);
 
   checkRotary();
-  
-  ShiftOut(theValue>>8 & 0xFF);
+
+  ShiftOut(theValue >> 8 & 0xFF);
   digitalWrite(DIGIT_3, LOW);
   delayMicroseconds(DIGIT_TIME);
   digitalWrite(DIGIT_3, HIGH);
 
   checkRotary();
-  
+
   ShiftOut(theValue & 0xFF);
   digitalWrite(DIGIT_4, LOW);
   delayMicroseconds(DIGIT_TIME);
@@ -623,13 +641,13 @@ void checkRotary() {
   unsigned char result = r.process();
   if (result) {
     result == DIR_CW ? frqIdx-- : frqIdx++;
-    if(mode == TABLE_VALUES){
-      if(frqIdx < 0) frqIdx = (TABLE_LENGTH-1);
-      if(frqIdx > (TABLE_LENGTH-1)) frqIdx = 0;
+    if (mode == TABLE_VALUES) {
+      if (frqIdx < 0) frqIdx = (TABLE_LENGTH - 1);
+      if (frqIdx > (TABLE_LENGTH - 1)) frqIdx = 0;
     }
     else {
-      if(frqIdx < 0) frqIdx = 65535;
-      if(frqIdx > 65535) frqIdx = 0;
+      if (frqIdx < 0) frqIdx = 65535;
+      if (frqIdx > 65535) frqIdx = 0;
     }
     newVal = true;
   }
